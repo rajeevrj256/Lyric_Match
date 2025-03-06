@@ -16,6 +16,7 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [isWin, setIsWin] = useState(false);
+  const [score, setScore] = useState(0);
 
   // Fetch a new lyric
   const fetchLyrics = async () => {
@@ -48,6 +49,7 @@ const App = () => {
         setModalMessage("🎉 Congratulations! You guessed the song correctly!");
         setIsWin(true);
         setShowModal(true);
+        setScore((prevScore) => prevScore + 10);
         return; 
       }
   
@@ -56,6 +58,7 @@ const App = () => {
         setActualSongTitle(response.data.correct_song_title);
         setModalMessage(`😞 You lost! The correct song was: ${response.data.correct_song_title}`);
         setIsWin(false);
+        setScore((prevScore) => prevScore -5);
         setShowModal(true);
       }
     } catch (error) {
@@ -66,6 +69,9 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-6">
+      <div className="absolute top-4 right-4 bg-blue-600 px-4 py-2 rounded-lg text-white font-bold shadow-lg">
+        Score: {score}
+      </div>
       <h1 className="text-3xl font-bold">🎶 Song Guessing Game 🎶</h1>
       <button
         onClick={fetchLyrics}
