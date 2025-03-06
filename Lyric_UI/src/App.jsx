@@ -9,6 +9,7 @@ const API_BASE_URL = "https://lyric-match-backend.onrender.com";
 
 const App = () => {
   const [lyrics, setLyrics] = useState("");
+  const [lyricGenerated, setLyricGenerated] = useState(false);
   const [message, setMessage] = useState("");
   const [isCorrect, setIsCorrect] = useState(null);
   const [attemptsLeft, setAttemptsLeft] = useState(3);
@@ -28,6 +29,7 @@ const App = () => {
       setAttemptsLeft(3);
       setActualSongTitle("");
       setShowModal(false);
+      setLyricGenerated(true);
     } catch (error) {
       console.error("Error fetching lyrics:", error);
     }
@@ -82,7 +84,10 @@ const App = () => {
       <LyricsDisplay lyrics={lyrics} />
       {lyrics && <GuessForm onSubmit={handleGuess} attemptsLeft={attemptsLeft} />}
       {message && <ResponseMessage message={message} isCorrect={isCorrect} />}
+      {lyricGenerated && (
+        
       <p className="mt-2 text-yellow-400">Attempts Left: {attemptsLeft}</p>
+      )}
 
       {/* Popup Modal */}
       <PopupModal
