@@ -5,7 +5,7 @@ import ResponseMessage from "./components/ResponseMessage";
 import PopupModal from "./components/PopupModal";
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8000"; // FastAPI backend
+const API_BASE_URL = "https://lyric-match-backend.onrender.com"; 
 
 const App = () => {
   const [lyrics, setLyrics] = useState("");
@@ -17,7 +17,7 @@ const App = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [isWin, setIsWin] = useState(false);
 
-  // Fetch lyric snippet from backend
+  // Fetch a new lyric
   const fetchLyrics = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/generate-lyric`);
@@ -43,15 +43,15 @@ const App = () => {
       setIsCorrect(response.data.correct);
       setAttemptsLeft(response.data.attempts_remaining || 0);
   
-      // Handle WIN 🏆
+      // Handle WIN 
       if (response.data.correct) {
         setModalMessage("🎉 Congratulations! You guessed the song correctly!");
         setIsWin(true);
         setShowModal(true);
-        return; // Exit early since the game is won
+        return; 
       }
   
-      // Handle LOSE ❌ (Check if attempts are now zero)
+      // Handle LOSE
       if (!response.data.correct && response.data.attempts_left===0) {
         setActualSongTitle(response.data.correct_song_title);
         setModalMessage(`😞 You lost! The correct song was: ${response.data.correct_song_title}`);
