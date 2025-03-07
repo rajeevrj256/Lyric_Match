@@ -18,7 +18,7 @@ const GuessForm = ({ onSubmit, attemptsLeft }) => {
         placeholder="Enter your guess..."
         value={guess}
         onChange={(e) => setGuess(e.target.value)}
-        className="border border-gray-400 p-2 rounded-lg w-64 text-black"
+        className="border border-gray-400 p-2 rounded-lg w-64 text-white"
       />
       <button
         type="submit"
